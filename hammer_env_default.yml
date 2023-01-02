@@ -1,0 +1,47 @@
+# Mentor tools:
+mentor.mentor_home: ""
+# Mentor license server/file
+mentor.MGLS_LICENSE_FILE: "ADD_LICENSE_PATH_HERE"
+
+# Cadence tools:
+cadence.cadence_home: "ADD_PATH_HERE"
+synthesis.genus.version: "211"
+par.innovus.version: "211"
+# Add paths to tool plugins
+vlsi.core.synthesis_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/synthesis"] # Append path to plugins
+vlsi.core.synthesis_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.par_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/par"] # Append path to plugins
+vlsi.core.par_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.formal_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/formal"] # Append path to plugins
+vlsi.core.formal_tool_path_meta: ["append", "lazysubst"]
+# Cadence license server/file
+cadence.CDS_LIC_FILE: "ADD_LICENSE_PATH_HERE"
+
+# Synopsys tools:
+synopsys.synopsys_home: "ADD_PATH_HERE"
+sim.vcs.version: "Q-2020.03-SP1"
+# Add paths to tool plugins
+vlsi.core.sim_tool_path: ["${vlsi.core.local_tool_path}/hammer-synopsys-plugins/sim"] # Append path to plugins
+vlsi.core.sim_tool_path_meta: ["append", "lazysubst"]
+# Synopsys license server/files
+synopsys.SNPSLMD_LICENSE_FILE: "ADD_LICENSE_PATH_HERE"
+synopsys.MGLS_LICENSE_FILE: "ADD_LICENSE_PATH_HERE"
+
+# OpenCircuitDesign tools:
+drc.magic.magic_bin: "ADD_PATH_HERE/magic/bin/magic"
+lvs.netgen:
+  netgen_bin: "ADD_PATH_HERE/netgen/bin/netgen"
+  setup_file: "${technology.sky130.sky130A}/libs.tech/netgen/sky130A_setup.tcl"
+
+# BSG tools:
+vlsi.core.sram_generator_tool_path: ["${vlsi.core.local_tool_path}/hammer-bsg-plugins/sram_generator"]
+vlsi.core.sram_generator_tool_path_meta: ["append", "lazysubst"]
+sram_generator.fakeram.fakeram_make: "${vlsi.core.local_tool_path}/bsg_fakeram/Makefile"
+sram_generator.fakeram.fakeram_make_meta: "lazysubst"
+
+# PDK paths:
+technology.sky130:
+  sky130A: "ADD_PATH_HERE"
+  sky130_nda: "" # Not needed
+  sky130_nda_meta: lazysubst
+  #openram_lib: "path-to-sky130_sram_macros/"

@@ -1,0 +1,95 @@
+# Input config file common to all modules
+
+vlsi.core.max_threads: 8
+vlsi.core.build_system: make # Generate Make include to aid in flow 
+
+# Tools and Technology setup
+vlsi.core:
+  # SKY130 process
+  technology: sky130
+  node: "130"
+  # SRAM generator
+  sram_generator_tool: "fakeram"
+  # Synthesis Tool
+  synthesis_tool: "genus"
+  # Place-and-Route Tool
+  par_tool: "innovus"
+  # Sim Tools
+  sim_tool: "vcs"
+  # DRC and LVS tools (drivers automatically included)
+  drc_tool: "magic"
+  lvs_tool: "netgen"
+  # Formal tool
+  formal_tool: "conformal"
+
+# Misc tool settings
+sim.vcs.disable_fgp: true
+sim.vcs.disable_force_regs: true
+synthesis.genus.write_sdf_args: ["-nosplit_timing_check", "-timescale ns"] # Support for post-synthesis VCS simulation
+par.innovus.design_flow_effort: "extreme" # Valid options: express (fastest), standard, and extreme (slowest).
+sram_generator.fakeram.pinPitch_nm: 700 # Avoids some DRC violations around SRAM pins
+
+# Simulation inputs
+sim.inputs:
+  top_module: "UNSPECIFIED" # (Don't set here)
+  timescale: "1ns/1ps"
+  timing_annotated: True
+  options:
+    - "+vcs+vcdpluson"
+    - "+vcs+vcdplusmemon"
+    - "+vcs+vcdplusautoflushon"
+    - "-sverilog" # Allow SystemVerilog
+    - "-debug_pp"
+    - "+define+FUNCTIONAL" # Use functional models of sky130 standard cells
+    - "+define+UNIT_DELAY" # Required to be defined for functional models of sky130 standard cells
+    - "+warn=noSDFCOM_UHICD" # Ignore up-heirarchy interconnect delay merging warnings
+    - "+warn=noSDFCOM_ANICD" # Ignore negative timing adjustment warnings
+
+# Default clock (in case user manually specifies clocks in custom SDC scripts.)
+vlsi.inputs.clocks: [{name: "DEFAULT_CLOCK", period: "0ns"}]
+
+# Generate SRAMS
+vlsi.inputs.sram_parameters: [] # None
+
+# Hammer will auto-generate a CPF for simple power designs; see hammer/src/hammer-vlsi/defaults.yml for more info
+vlsi.inputs.power_spec_mode: "auto"
+vlsi.inputs.power_spec_type: "cpf"
+
+# Power Straps
+par.power_straps_mode: generate
+par.generate_power_straps_method: by_tracks
+par.blockage_spacing: 3.0 # Buffer spaces around blockages suchas as macros (um)
+par.blockage_spacing_top_layer: met4
+par.generate_power_straps_options:
+  by_tracks:
+    strap_layers:
+      - met4
+      - met5
+    pin_layers:
+      - met5
+    blockage_spacing_met2: 4.0
+    track_width: 6
+    track_width_met5: 2
+    track_spacing: 1
+    track_start: 10
+    track_start_met5: 1
+    power_utilization: 0.1
+    power_utilization_met4: 0.3
+    power_utilization_met5: 0.5
+
+# Placement Constraints
+vlsi.inputs.placement_constraints:
+  - path: "TOP" # (this value isn't actually checked...)
+    type: toplevel
+    width:  1000
+    height: 1000
+    x: 0
+    y: 0
+    margins: {left: 0, right: 0, top: 0, bottom: 0}
+
+# Pin placement constraints
+vlsi.inputs.pin_mode: generated
+vlsi.inputs.pin.generate_mode: semi_auto
+vlsi.inputs.pin.assignments: [
+  {pins: "*", layers: ["met2", "met4"], side: "bottom"}
+]

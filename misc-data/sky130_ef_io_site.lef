@@ -1,0 +1,16 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+
+SITE sky130gpiov2site
+  CLASS PAD ;
+  SYMMETRY X Y ;
+  SIZE 80.000 BY 197.965 ;
+END sky130gpiov2site
+
+SITE sky130gpiocorner
+  CLASS PAD ;
+  SYMMETRY X Y ;
+  SIZE 200.000 BY 204.000 ;
+END sky130gpiov2site

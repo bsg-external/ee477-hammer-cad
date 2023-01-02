@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+'''
+Top level Python script invoking the Hammer build system.
+'''
+
+import hammer_vlsi
+from hammer_vlsi import CLIDriver, HammerToolHookAction, HierarchicalMode
+from typing import Dict, Callable, Optional, List
+
+# Import custom Hammer 'hooks'
+import py.bsg_essential_hammer_hooks as essential_hooks
+import py.lab_hammer_hooks as lab_hooks
+
+class ProjectHammerDriver(CLIDriver):
+    def get_extra_sram_generator_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [
+            hammer_vlsi.HammerTool.make_post_insertion_hook('register_macros', lab_hooks.fakeram_gen_macro_swaps)
+        ]
+        return extra_hooks
+    
+    def get_extra_synthesis_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [
+            hammer_vlsi.HammerTool.make_replacement_hook('syn_generic', essential_hooks.genus_syn_with_preserve),
+            hammer_vlsi.HammerTool.make_replacement_hook('syn_map',     essential_hooks.genus_maybe_syn_map)
+        ]
+        return extra_hooks
+
+    def get_extra_par_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [
+            # Default set of steps can be found in the CAD tool plugin's __init__.py
+
+            # make_pre_insertion_hook will execute the custom hook before the specified step
+            # SYNTAX: make_pre_insertion_hook("EXISTING_STEP", INSERTED_HOOK) Examples:
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("write_design",  essential_hooks.innovus_overwrite_write_sdf_funct),
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("write_design",  essential_hooks.innovus_extra_reports),
+
+            # make_post_insertion_hook will execute the custom hook after the specified step. Examples:
+            # hammer_vlsi.HammerTool.make_post_insertion_hook("init_design", example_tool_settings),
+            hammer_vlsi.HammerTool.make_post_insertion_hook('place_opt_design', essential_hooks.innovus_snap_floorplan),
+            hammer_vlsi.HammerTool.make_post_insertion_hook('write_design', lab_hooks.innovus_gen_magic_view_script)
+
+            # make_replacement_hook will replace the specified step with a custom hook. Examples:
+            # hammer_vlsi.HammerTool.make_replacement_hook("place_opt_design", place_opt_with_refinement),
+
+            # make_removal_hook will remove the specified step from the flow. Examples:
+            # hammer_vlsi.HammerTool.make_removal_hook("place_bumps"),
+
+            # The target step in any of the above calls may be a default step or another one of your custom hooks
+        ]
+        return extra_hooks 
+    
+    def get_extra_sim_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("run_vcs",        lab_hooks.vcs_gen_trace_roms),
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("run_vcs",        essential_hooks.vcs_remove_input_file_duplicates),
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("run_simulation", essential_hooks.vcs_gen_dve_script)
+        ]
+        return extra_hooks
+    
+    def get_extra_drc_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [] # Add any DRC tool hooks
+        return extra_hooks
+    
+    def get_extra_lvs_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [] # Add any LVS tool hooks
+        return extra_hooks
+
+if __name__ == '__main__':
+    ProjectHammerDriver().main()
