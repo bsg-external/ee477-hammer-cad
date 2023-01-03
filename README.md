@@ -32,14 +32,16 @@ always run even if the output file is already up to date. For example,
 
 | Simulation Commands | |
 |-------------------|-|
-| `make sim-rtl` (or `make sim`) | Runs the RTL-level simulation of your testbench. (Also has redo-* variant.)|
-| `make view-rtl-sim-wave` | Opens the most recently run RTL simulation with DVE waveform viewer.|
-| `make sim-syn` | Runs a gate-level simulation of your testbench using your post-synthesis netlist. This simulation includes timing annotation so each gate has its own delay. (Also has redo-* variant.)|
-| `make sim-syn-functional` | Runs a gate-level simulation of your testbench using your post-synthesis netlist. This simulation leaves out any timing annotation. (Also has redo-* variant.)|
-| `make view-syn-sim-wave` | Opens the most recently run post-synthesis simulation with DVE waveform viewer.|
-| `make sim-par` | Runs a gate-level simulation of your testbench using your post-place-and-route netlist. This simulation includes realistic timing annotation so each gate has its own delay. (Also has redo-* variant.)|
-| `make sim-par-functional` | Runs a gate-level simulation of your testbench using your post-place-and-route netlist. This simulation leaves out any timing annotation. (Also has redo-* variant.)|
-| `make view-par-sim-wave` | Opens the most recently run post-place-and-route simulation with DVE waveform viewer.|
+| `make sim-rtl` (or `make sim`) | Runs the RTL-level simulation of your testbench. |
+| `make view-sim-rtl` | Opens the most recently run RTL simulation with DVE waveform viewer.|
+| `make sim-rtl-hard` | Runs the RTL-level hardened-macro simulation of your testbench. |
+| `make view-sim-rtl-hard` | Opens the most recently run RTL-hard simulation with DVE waveform viewer.|
+| `make sim-syn` | Runs a gate-level simulation of your testbench using your post-synthesis netlist. This simulation includes timing annotation so each gate has its own delay.|
+| `make sim-syn-functional` | Runs a gate-level simulation of your testbench using your post-synthesis netlist. This simulation leaves out any timing annotation.|
+| `make view-sim-syn` | Opens the most recently run post-synthesis simulation with DVE waveform viewer.|
+| `make sim-par` | Runs a gate-level simulation of your testbench using your post-place-and-route netlist. This simulation includes realistic timing annotation so each gate has its own delay.|
+| `make sim-par-functional` | Runs a gate-level simulation of your testbench using your post-place-and-route netlist. This simulation leaves out any timing annotation.|
+| `make view-sim-par` | Opens the most recently run post-place-and-route simulation with DVE waveform viewer.|
 
 | Miscellaneous Commands | |
 |-------------------|-|
