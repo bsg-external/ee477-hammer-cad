@@ -7,7 +7,7 @@ vlsi.core.build_system: make # Generate Make include to aid in flow
 vlsi.core:
   # SKY130 process
   technology: sky130
-  node: "130"
+  node: 130
   # SRAM generator
   sram_generator_tool: "fakeram"
   # Synthesis Tool
@@ -21,6 +21,8 @@ vlsi.core:
   lvs_tool: "netgen"
   # Formal tool
   formal_tool: "conformal"
+  # Timing tool
+  timing_tool: "tempus"
 
 # Misc tool settings
 sim.vcs.disable_fgp: true
