@@ -126,7 +126,7 @@ def innovus_extra_reports(x: hammer_vlsi.HammerTool) -> bool:
     Where to use:
         pre_insertion_hook for the 'write_design' Innovus PAR step.
     '''
-    x.verbose_append(f'report_power -out_file {x.top_module}_power.rpt')
+    x.verbose_append(f'report_power -hierarchy all -out_file {x.top_module}_power.rpt')
     x.verbose_append(f'report_area -detail > {x.top_module}_area.rpt')
     # Generate timing reports by path group
     x.append('set pg_list [get_path_group -include_internal_groups]')
