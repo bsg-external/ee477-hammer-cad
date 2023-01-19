@@ -512,7 +512,7 @@ proc bsg_chip_ucsd_bsg_332_timing_constraint {bsg_reset_port \
 
   # set driving cell and load
   #set_driving_cell -lib_cell [get_attribute [get_cells -h sdo_A_sclk_o] ref_name] [all_inputs]
-  set_load 15 [all_outputs]
+  set_load 0.005 [all_outputs]
 
   # create path groups
   #
