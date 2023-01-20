@@ -57,6 +57,9 @@ vlsi.inputs.sram_parameters: [] # None
 vlsi.inputs.power_spec_mode: "auto"
 vlsi.inputs.power_spec_type: "cpf"
 
+# Set default load to some reasonable value (pF)
+vlsi.inputs.default_output_load: 0.005
+
 # Power Straps
 par.power_straps_mode: generate
 par.generate_power_straps_method: by_tracks
