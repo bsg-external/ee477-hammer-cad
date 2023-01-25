@@ -75,8 +75,8 @@ proc bsg_chip_ucsd_bsg_332_timing_constraint {bsg_reset_port \
   #  set manycore_clk_uncertainty  [expr ($clock_uncertainty_percent * $bsg_manycore_clk_period) / 100.0]
   #}
   
-  # Set clock uncertainty to about 5 fo4 (measured 194ps)
-  set static_clock_uncertainty 0.970
+  # Set clock uncertainty to about 1.5 fo4 (measured 194ps)
+  set static_clock_uncertainty 0.291
 
   set core_clk_uncertainty      $static_clock_uncertainty
   set out_io_clk_uncertainty    $static_clock_uncertainty
