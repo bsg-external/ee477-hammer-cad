@@ -57,6 +57,12 @@ class ProjectHammerDriver(CLIDriver):
         ]
         return extra_hooks
     
+    def get_extra_formal_hooks(self) -> List[HammerToolHookAction]:
+        extra_hooks = [
+            hammer_vlsi.HammerTool.make_pre_insertion_hook("setup_designs", lab_hooks.conformal_remove_mem_src)
+        ]
+        return extra_hooks
+
     def get_extra_drc_hooks(self) -> List[HammerToolHookAction]:
         extra_hooks = [] # Add any DRC tool hooks
         return extra_hooks

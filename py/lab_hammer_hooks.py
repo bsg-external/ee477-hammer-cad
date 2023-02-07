@@ -81,6 +81,21 @@ def innovus_gen_magic_view_script(x: hammer_vlsi.HammerTool) -> bool:
     x.logger.info('MAGIC chip viewer script generated.')
     return True
 
+# FORMAL HOOKS ################################################################
+
+def conformal_remove_mem_src(x: hammer_vlsi.HammerTool) -> bool:
+    '''
+    Remove bsg_mem_1rw* source files for formal verification. This is required because we need
+    the generated versions of these files in order to swap out for fakeram macro instances.
+
+    Where to use:
+        pre_insertion_hook for the 'setup_designs' Conformal step.
+    '''
+    x.reference_files = [s for s in x.reference_files if not s.endswith('bsg_mem_1rw_sync.v')]
+    x.reference_files = [s for s in x.reference_files if not s.endswith('bsg_mem_1rw_sync_mask_write_bit.v')]
+    x.reference_files = [s for s in x.reference_files if not s.endswith('bsg_mem_1rw_sync_mask_write_byte.v')]
+    return True
+
 # SIMULATION HOOKS ############################################################
 
 def vcs_gen_trace_roms(x: hammer_vlsi.HammerTool) -> bool:
