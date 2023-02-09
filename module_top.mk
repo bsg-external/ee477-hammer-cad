@@ -55,6 +55,7 @@ $(OBJ_DIR)/hammer.d: $(OBJ_DIR)/paths.yml | $(TOP_DIR)/hammer
 # Include generated makefile
 include $(OBJ_DIR)/hammer.d
 include $(TOP_DIR)/hammer-bsg-plugins/vcs-mk/include.mk
+include $(TOP_DIR)/hammer-bsg-plugins/klayout-mk/include.mk
 
 # SRAM generation target
 .PHONY: sram
