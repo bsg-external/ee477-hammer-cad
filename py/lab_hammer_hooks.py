@@ -81,6 +81,25 @@ def innovus_gen_magic_view_script(x: hammer_vlsi.HammerTool) -> bool:
     x.logger.info('MAGIC chip viewer script generated.')
     return True
 
+def innovus_gen_klayout_view_script(x: hammer_vlsi.HammerTool) -> bool:
+    '''
+    Generate a script to open the output GDS in Klayout. Requires manual path to Ruby libraries.
+    
+    Where to use:
+        post_insertion_hook for the 'write_design' Innovus PAR step.
+    '''
+    bash_script = os.path.join(x.generated_scripts_dir, 'klayout_open_chip')
+    klayout_bin = x.get_setting('klayout.klayout_bin')
+    ruby_lib = x.get_setting('klayout.ruby_lib')
+    layer_prop = x.get_setting('klayout.layer_properties')
+    with open(bash_script, 'w') as fout:
+        fout.write('#!/bin/bash\n')
+        fout.write(f'export RUBYLIB={ruby_lib};\n')
+        fout.write(f'{klayout_bin} -l {layer_prop} {x.output_gds_filename} &\n')
+    os.chmod(bash_script, 0o755)
+    x.logger.info('Klayout chip viewer script generated.')
+    return True
+
 # FORMAL HOOKS ################################################################
 
 def conformal_remove_mem_src(x: hammer_vlsi.HammerTool) -> bool:

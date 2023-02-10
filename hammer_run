@@ -37,7 +37,8 @@ class ProjectHammerDriver(CLIDriver):
             # make_post_insertion_hook will execute the custom hook after the specified step. Examples:
             # hammer_vlsi.HammerTool.make_post_insertion_hook("init_design", example_tool_settings),
             hammer_vlsi.HammerTool.make_post_insertion_hook('place_opt_design', essential_hooks.innovus_snap_floorplan),
-            hammer_vlsi.HammerTool.make_post_insertion_hook('write_design', lab_hooks.innovus_gen_magic_view_script)
+            hammer_vlsi.HammerTool.make_post_insertion_hook('write_design', lab_hooks.innovus_gen_magic_view_script),
+            hammer_vlsi.HammerTool.make_post_insertion_hook('write_design', lab_hooks.innovus_gen_klayout_view_script)
 
             # make_replacement_hook will replace the specified step with a custom hook. Examples:
             # hammer_vlsi.HammerTool.make_replacement_hook("place_opt_design", place_opt_with_refinement),

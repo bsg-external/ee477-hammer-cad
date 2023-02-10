@@ -101,3 +101,7 @@ open-chip: $(OBJ_DIR)/par-rundir/generated-scripts/open_chip
 magic-open-chip: $(OBJ_DIR)/par-rundir/generated-scripts/magic_open_chip
 	$<
 
+# Open Klayout GUI and load the built design
+klayout-open-chip: $(OBJ_DIR)/par-rundir/generated-scripts/klayout_open_chip
+	$<
+
