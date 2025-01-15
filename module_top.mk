@@ -18,7 +18,7 @@ TB_CFGS     ?=DEFAULT
 
 # If this is running in the University of Washington ECE labs, source the common environment file.
 ifneq ($(findstring ece.uw.edu, $(shell hostname)),)
-	HAMMER_ENV ?= /home/projects/ee477.2023wtr/cad/hammer_env.yml
+	HAMMER_ENV ?= /home/projects/ee477.2025wtr/cad/hammer_env.yml
 else 
 	HAMMER_ENV ?= $(TOP_DIR)/hammer_env_default.yml
 endif
