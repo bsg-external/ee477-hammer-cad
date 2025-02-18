@@ -46,10 +46,10 @@ def fakeram_gen_macro_swaps(x: hammer_vlsi.HammerTool) -> bool:
     os.system(f'cat {bsg_root}/hard/fakeram/bsg_mem_1rw_sync_macros.vh                  > {hard_swap_v_name}')
     os.system(f'cat {bsg_root}/hard/fakeram/bsg_mem_1rw_sync_mask_write_bit_macros.vh  >> {hard_swap_v_name}')
     os.system(f'cat {bsg_root}/hard/fakeram/bsg_mem_1rw_sync_mask_write_byte_macros.vh >> {hard_swap_v_name}')
-    # Generate and concatinate hard swap files for all 3 types of rams. Must use Python 2! :(
-    os.system(f'python2 {swap_gen_script_path} {swap_gen_cfg} 1rw 0                    >> {hard_swap_v_name}')
-    os.system(f'python2 {swap_gen_script_path} {swap_gen_cfg} 1rw 1                    >> {hard_swap_v_name}')
-    os.system(f'python2 {swap_gen_script_path} {swap_gen_cfg} 1rw 8                    >> {hard_swap_v_name}')
+    # Generate and concatinate hard swap files for all 3 types of rams
+    os.system(f'{swap_gen_script_path} {swap_gen_cfg} 1rw 0                            >> {hard_swap_v_name}')
+    os.system(f'{swap_gen_script_path} {swap_gen_cfg} 1rw 1                            >> {hard_swap_v_name}')
+    os.system(f'{swap_gen_script_path} {swap_gen_cfg} 1rw 8                            >> {hard_swap_v_name}')
     # Create library for hard swap verilog file. Use it for both synthesis and simulation
     x.output_libraries.append(ExtraLibrary(
         prefix=None, library=Library(
